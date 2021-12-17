@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
+const TerserPlugin = require('terser-webpack-plugin');
+
 const SRC_PATH = path.resolve(__dirname, './src');
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
 const UPLOAD_PATH = path.resolve(__dirname, '../upload');
@@ -80,6 +82,10 @@ const config = {
       fs: false,
       path: false,
     },
+  },
+  
+  optimization: {
+    minimizer: [new TerserPlugin({ /* additional options here */ })],
   },
 };
 
