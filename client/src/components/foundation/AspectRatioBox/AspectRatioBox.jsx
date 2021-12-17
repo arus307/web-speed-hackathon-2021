@@ -32,9 +32,11 @@ const AspectRatioBox = ({ aspectHeight, aspectWidth, children }) => {
   }, [aspectHeight, aspectWidth]);
 
   return (
-    <div ref={ref} className="relative w-full h-1" style={{ height: clientHeight }}>
+    <div ref={ref} className="relative w-full h-1" style={{ height: '100%', aspectRatio:aspectWidth + '/' + aspectHeight }}>
       {/* 高さが計算できるまで render しない */}
-      {clientHeight !== 0 ? <div className="absolute inset-0">{children}</div> : null}
+      {/* {clientHeight !== 0 ?  */}
+      <div className="absolute inset-0">{children}</div>
+      {/* {  : null} */}
     </div>
   );
 };
