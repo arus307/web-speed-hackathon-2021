@@ -11,8 +11,8 @@ function getImagePath(imageId) {
  * @returns {string}
  */
 function getMoviePath(movieId) {
-  return `/movies/${movieId}.gif`;
-  // return `/movies/${movieId}.webm`;
+  // return `/movies/${movieId}.gif`;
+  return `/movies/${movieId}.webm`;
 }
 
 /**

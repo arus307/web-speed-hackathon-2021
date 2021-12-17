@@ -8,6 +8,8 @@ import { fetchBinary } from '../../../utils/fetchers';
 import { AspectRatioBox } from '../AspectRatioBox';
 import { FontAwesomeIcon } from '../FontAwesomeIcon';
 
+import ReactPlayer from 'react-player';
+
 /**
  * @typedef {object} Props
  * @property {string} src
@@ -32,23 +34,37 @@ const PausableMovie = ({ src }) => {
       }
 
       // GIF を解析する
-      const reader = new GifReader(new Uint8Array(data));
-      const frames = Decoder.decodeFramesSync(reader);
-      const animator = new Animator(reader, frames);
+      // const reader = new GifReader(new Uint8Array(data));
+      // const frames = Decoder.decodeFramesSync(reader);
+      // const animator = new Animator(reader, frames);
 
-      animator.animateInCanvas(el);
-      animator.onFrame(frames[0]);
+      // animator.animateInCanvas(el);
+      // animator.onFrame(frames[0]);
 
       // 視覚効果 off のとき GIF を自動再生しない
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         setIsPlaying(false);
-        animator.stop();
+        // animator.stop();
       } else {
         setIsPlaying(true);
-        animator.start();
+        // animator.start();
       }
 
-      animatorRef.current = animator;
+      // animatorRef.current = animator;
+    },
+    [data],
+  );
+
+  const playerCallBack = React.useCallback(
+    (el) => {
+      // 視覚効果 off のとき GIF を自動再生しない
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setIsPlaying(false);
+        console.log("autoplay : off");
+      } else {
+        setIsPlaying(true);
+        console.log("autoplay : on");
+      }
     },
     [data],
   );
@@ -56,11 +72,11 @@ const PausableMovie = ({ src }) => {
   const [isPlaying, setIsPlaying] = React.useState(true);
   const handleClick = React.useCallback(() => {
     setIsPlaying((isPlaying) => {
-      if (isPlaying) {
-        animatorRef.current?.stop();
-      } else {
-        animatorRef.current?.start();
-      }
+      // if (isPlaying) {
+      //   // animatorRef.current?.stop();
+      // } else {
+      //   // animatorRef.current?.start();
+      // }
       return !isPlaying;
     });
   }, []);
@@ -72,7 +88,9 @@ const PausableMovie = ({ src }) => {
   return (
     <AspectRatioBox aspectHeight={1} aspectWidth={1}>
       <button className="group relative block w-full h-full" onClick={handleClick} type="button">
-        <canvas ref={canvasCallbackRef} className="w-full" />
+        <ReactPlayer ref={playerCallBack} playing={isPlaying} url={src} width={'100%'} height={'100%'} />
+
+        {/* <canvas ref={canvasCallbackRef} className="w-full" /> */}
         <div
           className={classNames(
             'absolute left-1/2 top-1/2 flex items-center justify-center w-16 h-16 text-white text-3xl bg-black bg-opacity-50 rounded-full transform -translate-x-1/2 -translate-y-1/2',
