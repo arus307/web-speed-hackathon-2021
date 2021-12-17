@@ -5,6 +5,8 @@ import React from 'react';
 import { useFetch } from '../../../hooks/use_fetch';
 import { fetchBinary } from '../../../utils/fetchers';
 
+
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 /**
  * @typedef {object} Props
  * @property {string} alt
@@ -16,6 +18,7 @@ import { fetchBinary } from '../../../utils/fetchers';
  * @type {React.VFC<Props>}
  */
 const CoveredImage = ({ alt, src }) => {
+  console.log("src:"+src);
   const { data, isLoading } = useFetch(src, fetchBinary);
 
   const imageSize = React.useMemo(() => {
@@ -44,14 +47,24 @@ const CoveredImage = ({ alt, src }) => {
 
   return (
     <div ref={callbackRef} className="relative w-full h-full overflow-hidden">
-      <img
+
+      <LazyLoadImage
+            className={classNames('absolute left-1/2 top-1/2 max-w-none transform -translate-x-1/2 -translate-y-1/2', {
+              'w-auto h-full': containerRatio > imageRatio,
+              'w-full h-auto': containerRatio <= imageRatio,
+            })}
+            alt={alt}
+            src={blobUrl} // use normal <img> attributes as props
+            />
+
+      {/* <img
         alt={alt}
         className={classNames('absolute left-1/2 top-1/2 max-w-none transform -translate-x-1/2 -translate-y-1/2', {
           'w-auto h-full': containerRatio > imageRatio,
           'w-full h-auto': containerRatio <= imageRatio,
         })}
         src={blobUrl}
-      />
+      /> */}
     </div>
   );
 };

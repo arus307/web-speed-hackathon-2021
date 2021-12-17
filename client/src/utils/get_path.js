@@ -3,7 +3,7 @@
  * @returns {string}
  */
 function getImagePath(imageId) {
-  return `/images/${imageId}.jpg`;
+  return `/images/${imageId}.webp`;
 }
 
 /**
@@ -12,6 +12,7 @@ function getImagePath(imageId) {
  */
 function getMoviePath(movieId) {
   return `/movies/${movieId}.gif`;
+  // return `/movies/${movieId}.webm`;
 }
 
 /**
