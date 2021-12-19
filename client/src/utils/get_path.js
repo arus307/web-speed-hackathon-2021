@@ -6,7 +6,7 @@ function getImagePath(imageId) {
   return `/images/${imageId}_320w.webp 320w ,`
 +`/images/${imageId}_640w.webp 640w ,`
 + `/images/${imageId}_1280w.webp 1280w ,`
-+ `/imagel/${imageId}.webp`;
++ `/images/${imageId}.webp`;
 }
 
 /**
