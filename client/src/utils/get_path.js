@@ -3,7 +3,10 @@
  * @returns {string}
  */
 function getImagePath(imageId) {
-  return `/images/${imageId}.webp`;
+  return `/images/${imageId}_320w.webp 320w ,`
++`/images/${imageId}_640w.webp 640w ,`
++ `/images/${imageId}_1280w.webp 1280w ,`
++ `/imagel/${imageId}.webp`;
 }
 
 /**
@@ -28,7 +31,7 @@ function getSoundPath(soundId) {
  * @returns {string}
  */
 function getProfileImagePath(profileImageId) {
-  return `/images/profiles/${profileImageId}.jpg`;
+  return `/images/profiles/${profileImageId}.webp`;
 }
 
 export { getImagePath, getMoviePath, getSoundPath, getProfileImagePath };
